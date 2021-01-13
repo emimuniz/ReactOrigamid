@@ -1,46 +1,32 @@
 import './App.css';
+import Home from './Components/Home';
+import Produtos from './Components/Produtos';
 
-// Organize os produtos como mostrado no vídeo
-// Mostre apenas produtos que forem mais caros que R$ 1500
+// Replique a interface como a apresentada na aula
+// Utilize a array abaixo para mostrar os produtos
+// Quebre em componentes o que precisar ser reutilizado
+// Dica: const { pathname } = window.location; (puxa o caminho do URL)
 const produtos = [
-  {
-    id: 1,
-    nome: 'Smartphone',
-    preco: 'R$ 2000',
-    cores: ['#29d8d5', '#252a34', '#fc3766'],
-  },
-  {
-    id: 2,
-    nome: 'Notebook',
-    preco: 'R$ 3000',
-    cores: ['#ffd045', '#d4394b', '#f37c59'],
-  },
-  {
-    id: 3,
-    nome: 'Tablet',
-    preco: 'R$ 1500',
-    cores: ['#365069', '#47c1c8', '#f95786'],
-  },
+  { nome: 'Notebook', propriedades: ['16gb ram', '512gb'] },
+  { nome: 'Smartphone', propriedades: ['2gb ram', '128gb'] },
 ];
+const { pathname } = window.location;
 
 function App() {
   return (
     <section>
-      {produtos
-        .filter((produto) => Number(produto.preco.replace('R$ ', '')) > 1500)
-        .map((produto) => (
-          <div key={produto.id}>
-            <h1>{produto.nome}</h1>
-            <p>Preço: {produto.preco}</p>
-            <ul>
-              {produto.cores.map((cor) => (
-                <li key={cor} style={{ backgroundColor: cor, color: 'white' }}>
-                  {cor}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <header>
+        <nav>
+          <li>
+            <a href="Home">Home</a>
+          </li>
+          <li>
+            <a href="Produtos">Produtos</a>
+          </li>
+        </nav>
+      </header>
+
+      {pathname === '/Home' ? <Home /> : <Produtos produtos={produtos} />}
     </section>
   );
 }
